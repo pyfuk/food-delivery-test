@@ -20,7 +20,7 @@ function Products() {
 
   if (products.data) {
     content = products.data.items.map((product, key) => (
-      <div key={key}>
+      <div key={key} className="products-cont">
         <ProductCard product={product} />
       </div>
     ));
@@ -32,7 +32,9 @@ function Products() {
 
       <span>{products.data ? products.data.totalCount : 0} товара</span>
 
-      <div className="products-container">{content}</div>
+      <div>
+        <div className="products-container">{content}</div>
+      </div>
     </main>
   );
 }

@@ -75,17 +75,19 @@
 .main-container {
   position: relative;
   top: 80px;
+  max-width: 1280px;
 }
 
 .product-card-container {
   outline: rgb(221, 215, 213) solid 1px;
   position: relative;
+  height: 100%;
 }
 
 .product-card-shop-wrap {
   position: absolute;
-  left: 20px;
-  top: 14px;
+  left: 8px;
+  top: 8px;
   border-radius: 3px;
   z-index: 10;
   color: rgb(25, 0, 0);
@@ -97,26 +99,80 @@
   align-items: center;
   padding: 4px;
   white-space: nowrap;
+  font-size: 20px;
 }
 
 .product-card-item {
-  height: 100%;
-  width: 100%;
   padding: 12px;
   display: flex;
   flex-direction: column;
-  -webkit-box-pack: justify;
   justify-content: space-between;
   background-color: rgb(255, 253, 250);
   color: rgb(25, 0, 0);
+  height: 100%;
 }
 
 .product-card-image img {
-  height: 400px;
-  width: 400px;
+  height: 195px;
+  width: 100%;
+  object-fit: cover;
 }
 
 .product-card-price-container {
   display: flex;
   justify-content: space-between;
+  font-family: "AvantGardeGothicITC";
+  align-items: center;
+}
+
+.products-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.product-card-button {
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  border-radius: 8px;
+  height: 40px;
+  transition: all 0.2s ease 0s;
+  line-height: 16px;
+  font-size: 13px;
+  border: none;
+  background-color: rgb(58, 101, 176);
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+  height: 40px;
+  width: 40px;
+  padding: 0px;
+}
+
+.product-card-price {
+  font-size: 25px;
+  font-weight: 900;
+}
+
+.product-card-price-ruble {
+  font-size: 15px;
+  font-weight: 900;
+}
+
+.product-card-weight {
+  color: #8c7f7d;
+  margin-top: 3px;
+  margin-bottom: 0px;
+}
+
+.product-card-name {
+  font-size: 18px;
+  margin-bottom: 0px;
+  font-weight: 700;
+  margin-top: 0;
+}
+
+.products-cont {
+  flex-basis: 25%;
 }

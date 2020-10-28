@@ -1,4 +1,6 @@
 import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 function ProductCard(props) {
   return (
@@ -9,12 +11,17 @@ function ProductCard(props) {
           <div className="product-card-image">
             <img src={props.product.images[0].path} alt="img" />
           </div>
-          <p>{props.product.name}</p>
-          <p>{props.product.weight} г</p>
+          <p className="product-card-name">{props.product.name}</p>
+          <p className="product-card-weight">{props.product.weight} г</p>
         </div>
         <div className="product-card-price-container">
-          <p>{props.product.price} P</p>
-          <button>+</button>
+          <p className="product-card-price">
+            {props.product.price}
+            <span className="product-card-price-ruble">&#8381;</span>
+          </p>
+          <button className="product-card-button">
+            <FontAwesomeIcon icon={faPlus} />
+          </button>
         </div>
       </div>
     </div>
