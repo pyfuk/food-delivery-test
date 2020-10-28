@@ -33,24 +33,64 @@ function ProductCard(props) {
 
   if (!button.pressed) {
     addButoon = (
-      <button
-        className="product-card-button"
-        onClick={() => plusCount(props.product)}
-      >
+      <button className="product-card-button" onClick={() => plusCount()}>
         <FontAwesomeIcon icon={faPlus} />
       </button>
     );
   }
 
-  const plusCount = (product) => {
+  const plusCount = () => {
     setPressed({ pressed: true, count: button.count + 1 });
+
+    let productStorage = localStorage.getItem("products");
+
+    if (!productStorage || productStorage === "null") {
+      const products = [{ product: props.product.code, count: 1 }];
+      localStorage.setItem("products", JSON.stringify(products));
+    } else if (productStorage) {
+      let jsonProducts = JSON.parse(productStorage);
+      if (!addOrRemoveFromStorage(true, jsonProducts)) {
+        jsonProducts.push({ product: props.product.code, count: 1 });
+        localStorage.setItem("products", JSON.stringify(jsonProducts));
+      }
+    }
   };
+
   const minusCount = () => {
+    let jsonProducts = JSON.parse(localStorage.getItem("products"));
+
     if (button.count === 1) {
       setPressed({ pressed: false, count: button.count - 1 });
+      addOrRemoveFromStorage(false, jsonProducts);
     } else {
       setPressed({ pressed: true, count: button.count - 1 });
+      addOrRemoveFromStorage(false, jsonProducts);
     }
+  };
+
+  const addOrRemoveFromStorage = (isPlus, jsonProducts) => {
+    const existProduct = jsonProducts.find(
+      (c) => c.product === props.product.code
+    );
+    console.log(existProduct);
+    if (existProduct) {
+      const existIdxProduct = jsonProducts.indexOf(existProduct);
+      if (isPlus) {
+        jsonProducts[existIdxProduct].count++;
+      } else {
+        if (jsonProducts[existIdxProduct].count === 1) {
+          jsonProducts = jsonProducts.filter(
+            (p) => p.product !== jsonProducts[existIdxProduct].product
+          );
+        } else {
+          jsonProducts[existIdxProduct].count--;
+        }
+      }
+      localStorage.setItem("products", JSON.stringify(jsonProducts));
+      return true;
+    }
+
+    return false;
   };
 
   return (
