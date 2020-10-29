@@ -7,15 +7,8 @@ function Products() {
   const url = `https://back.danilovskymarket.ru/products?category=molochnie_produkti_siri`;
 
   let products = useAxiosGet(url);
-
-  console.log(products);
-
   if (products.error) {
     content = <p>ERROR</p>;
-  }
-
-  if (products.loading) {
-    content = <p>{/* <Loader /> */}</p>;
   }
 
   if (products.data) {

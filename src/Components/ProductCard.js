@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { faMinus } from "@fortawesome/free-solid-svg-icons";
-import { useTransition, animated } from "react-spring";
+import { productSub } from "../Hooks/Service";
 
 function ProductCard(props) {
   const [button, setPressed] = useState({
@@ -94,18 +94,15 @@ function ProductCard(props) {
     return false;
   };
 
-  const [show, set] = useState(false);
-  const transitions = useTransition(show, null, {
-    from: { position: "absolute", opacity: 0 },
-    enter: { opacity: 1 },
-    leave: { opacity: 0 },
-  });
+  const sendSub = () => {
+    productSub.next("Hello");
+  };
 
   return (
-    <div className="product-card-container" onClick={() => set(!show)}>
+    <div className="product-card-container">
       <div className="product-card-shop-wrap">{props.product.shopCode}</div>
       <div className="product-card-item">
-        <div>
+        <div onClick={() => sendSub()}>
           <div className="product-card-image">
             <img src={props.product.images[0].path} alt="img" />
           </div>
@@ -120,15 +117,6 @@ function ProductCard(props) {
           {addButoon}
         </div>
       </div>
-
-      {transitions.map(
-        ({ item, key, props }) =>
-          item && (
-            <animated.div key={key} style={props} className="product-modal">
-              Hello
-            </animated.div>
-          )
-      )}
     </div>
   );
 }
