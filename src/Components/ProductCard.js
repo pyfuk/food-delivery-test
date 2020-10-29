@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { faMinus } from "@fortawesome/free-solid-svg-icons";
 import { productSub } from "../Hooks/Service";
+import { Link } from "react-router-dom";
 
 function ProductCard(props) {
   const [button, setPressed] = useState({
@@ -73,7 +74,6 @@ function ProductCard(props) {
     const existProduct = jsonProducts.find(
       (c) => c.product === props.product.code
     );
-    console.log(existProduct);
     if (existProduct) {
       const existIdxProduct = jsonProducts.indexOf(existProduct);
       if (isPlus) {
@@ -95,20 +95,22 @@ function ProductCard(props) {
   };
 
   const sendSub = () => {
-    productSub.next("Hello");
+    productSub.next();
   };
 
   return (
     <div className="product-card-container">
       <div className="product-card-shop-wrap">{props.product.shopCode}</div>
       <div className="product-card-item">
-        <div onClick={() => sendSub()}>
-          <div className="product-card-image">
-            <img src={props.product.images[0].path} alt="img" />
+        <Link to={`/${props.product.code}`}>
+          <div onClick={() => sendSub()}>
+            <div className="product-card-image">
+              <img src={props.product.images[0].path} alt="img" />
+            </div>
+            <p className="product-card-name">{props.product.name}</p>
+            <p className="product-card-weight">{props.product.weight} г</p>
           </div>
-          <p className="product-card-name">{props.product.name}</p>
-          <p className="product-card-weight">{props.product.weight} г</p>
-        </div>
+        </Link>
         <div className="product-card-price-container">
           <p className="product-card-price">
             {props.product.price}
