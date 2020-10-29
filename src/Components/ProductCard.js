@@ -105,7 +105,10 @@ function ProductCard(props) {
         <Link to={`/${props.product.code}`}>
           <div onClick={() => sendSub()}>
             <div className="product-card-image">
-              <img src={props.product.images[0].path} alt="img" />
+              <img
+                src={props.product.images[0].path}
+                alt={props.product.name}
+              />
             </div>
             <p className="product-card-name">{props.product.name}</p>
             <p className="product-card-weight">{props.product.weight} г</p>

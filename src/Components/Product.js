@@ -14,7 +14,35 @@ function Product() {
   }
 
   if (product.data) {
-    content = <div> {product.data.name}</div>;
+    console.log(product.data);
+    content = (
+      <div>
+        <div className="modal-product-img-comtainer">
+          <img src={product.data.images[0].path} alt={product.data.name} />
+        </div>
+        <section className="modal-product-content-comtainer">
+          <h2 className="modal-product-name">{product.data.name}</h2>
+          <div className="modal-product-price-weight-container">
+            <span className="modal-product-price">
+              {product.data.price} &#8381;
+            </span>
+            <span className="modal-product-weight">
+              {product.data.weight} г
+            </span>
+          </div>
+          <div>
+            <h3 className="modal-product-headers">Описание</h3>
+            <p>{product.data.description[0]?.children[0].text}</p>
+          </div>
+          <div>
+            <h3 className="modal-product-headers">Состав</h3>
+            <ul>
+              <li>{product.data.ingredients[0]}</li>
+            </ul>
+          </div>
+        </section>
+      </div>
+    );
   }
   return <div>{content}</div>;
 }
