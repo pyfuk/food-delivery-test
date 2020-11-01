@@ -51,7 +51,7 @@ function ProductCard(props) {
   const addProduct = () => {
     setPressed({ pressed: true, count: button.count + 1 });
 
-    store.addToCart(props.product);
+    store.addProductCountToCart(props.product);
     console.log(store.cart);
   };
 
@@ -61,7 +61,7 @@ function ProductCard(props) {
     } else {
       setPressed({ pressed: true, count: button.count - 1 });
     }
-    store.removeFromCart(props.product);
+    store.removeProductCountToCart(props.product);
     console.log(store.cart);
   };
 

@@ -27,7 +27,7 @@ function Product() {
   const addProduct = (product) => {
     setPressed({ pressed: true, count: button.count + 1 });
 
-    store.addToCart(product);
+    store.addProductCountToCart(product);
     console.log(store.cart);
   };
 
@@ -37,7 +37,7 @@ function Product() {
     } else {
       setPressed({ pressed: true, count: button.count - 1 });
     }
-    store.removeFromCart(product);
+    store.removeProductCountToCart(product);
     console.log(store.cart);
   };
 

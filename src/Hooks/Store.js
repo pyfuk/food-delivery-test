@@ -6,11 +6,11 @@ const StoreContext = React.createContext();
 const StoreProvider = ({ children }) => {
   const store = useLocalStore(() => ({
     cart: [],
-    addToCart: (product) => {
+    addProductCountToCart: (product) => {
       if (!addOrRemoveExistProduct(true, store.cart, product))
         store.cart.push({ product: product, count: 1 });
     },
-    removeFromCart: (product) => {
+    removeProductCountToCart: (product) => {
       addOrRemoveExistProduct(false, store.cart, product);
     },
     getProductInCart: (product) => {
@@ -19,6 +19,12 @@ const StoreProvider = ({ children }) => {
       );
 
       return existproduct;
+    },
+    clearCart: () => {
+      store.cart = [];
+    },
+    removeProduct: (product) => {
+      store.cart = store.cart.filter((p) => p.product.code !== product.code);
     },
     get total() {
       const totalPrice = store.cart.reduce((acc, current) => {

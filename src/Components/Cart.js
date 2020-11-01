@@ -15,12 +15,12 @@ const Cart = observer((props) => {
   let content = null;
 
   const addProduct = (product) => {
-    store.addToCart(product);
+    store.addProductCountToCart(product);
     console.log(store.cart);
   };
 
   const removeProduct = (product) => {
-    store.removeFromCart(product);
+    store.removeProductCountToCart(product);
     console.log(store.cart);
   };
 
@@ -37,7 +37,12 @@ const Cart = observer((props) => {
           <div className="cart-products">
             <div className="cart-products-header">
               <h2 className="cart-products-header-h2">Продукты</h2>
-              <button className="cart-products-header-clear">Очистить</button>
+              <button
+                className="cart-products-header-clear"
+                onClick={() => store.clearCart()}
+              >
+                Очистить
+              </button>
             </div>
             {products.map((data, key) => (
               <article key={key} className="cart-product-container">
@@ -79,7 +84,10 @@ const Cart = observer((props) => {
                     </div>
                   </div>
                 </div>
-                <button className="cart-product-remove">
+                <button
+                  className="cart-product-remove"
+                  onClick={() => store.removeProduct(data.product)}
+                >
                   <FontAwesomeIcon icon={faTimes} />
                 </button>
               </article>
