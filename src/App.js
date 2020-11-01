@@ -1,12 +1,13 @@
 import "./App.css";
 import React, { useState } from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Products from "./Components/Products";
 import Header from "./Components/Header";
 import { productSub } from "./Hooks/Service";
 import { useTransition, animated } from "react-spring";
 import Product from "./Components/Product";
 import { StoreProvider } from "./Hooks/Store";
+import Cart from "./Components/Cart";
 
 function App() {
   const [show, set] = useState(false);
@@ -35,37 +36,40 @@ function App() {
   return (
     <StoreProvider>
       <Router>
-        <div>
-          <Switch>
-            <Route path="/:code">
-              {maskTransitions.map(
-                ({ item, key, props }) =>
-                  item && (
-                    <animated.div
-                      key={key}
-                      style={props}
-                      className="product-modal-mask"
-                      onClick={() => closeModal()}
-                    ></animated.div>
-                  )
-              )}
-              {transitions.map(
-                ({ item, key, props }) =>
-                  item && (
-                    <animated.div
-                      key={key}
-                      style={props}
-                      className="product-modal"
-                    >
-                      <Product product={product} />
-                    </animated.div>
-                  )
-              )}
+        <Switch>
+          <div>
+            <Header />
+            {maskTransitions.map(
+              ({ item, key, props }) =>
+                item && (
+                  <animated.div
+                    key={key}
+                    style={props}
+                    className="product-modal-mask"
+                    onClick={() => closeModal()}
+                  ></animated.div>
+                )
+            )}
+            {transitions.map(
+              ({ item, key, props }) =>
+                item && (
+                  <animated.div
+                    key={key}
+                    style={props}
+                    className="product-modal"
+                  >
+                    <Product product={product} />
+                  </animated.div>
+                )
+            )}
+            <Route exact path="/">
+              <Products />
             </Route>
-          </Switch>
-          <Header />
-          <Products />
-        </div>
+            <Route path="/cart">
+              <Cart />
+            </Route>
+          </div>
+        </Switch>
       </Router>
     </StoreProvider>
   );

@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { faMinus } from "@fortawesome/free-solid-svg-icons";
 import { productSub } from "../Hooks/Service";
 import { Link } from "react-router-dom";
 import { StoreContext } from "../Hooks/Store";
+import { useObserver } from "mobx-react";
 
 function ProductCard(props) {
   const [button, setPressed] = useState({
@@ -42,12 +43,10 @@ function ProductCard(props) {
     );
   }
 
-  useEffect(() => {
-    const prod = store.getProductInCart(props.product);
-    if (prod) {
-      setPressed({ pressed: true, count: prod.count });
-    }
-  });
+  // const prod = store.getProductInCart(props.product);
+  // if (prod) {
+  //   setPressed({ pressed: true, count: prod.count });
+  // }
 
   const addProduct = () => {
     setPressed({ pressed: true, count: button.count + 1 });
@@ -70,11 +69,11 @@ function ProductCard(props) {
     productSub.next();
   };
 
-  return (
+  return useObserver(() => (
     <div className="product-card-container">
       <div className="product-card-shop-wrap">{props.product.shopCode}</div>
       <div className="product-card-item">
-        <Link to={`/${props.product.code}`}>
+        <Link to={`?product=${props.product.code}`}>
           <div onClick={() => sendSub()}>
             <div className="product-card-image">
               <img
@@ -95,6 +94,6 @@ function ProductCard(props) {
         </div>
       </div>
     </div>
-  );
+  ));
 }
 export default ProductCard;

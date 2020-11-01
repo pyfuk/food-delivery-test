@@ -20,6 +20,14 @@ const StoreProvider = ({ children }) => {
 
       return existproduct;
     },
+    get total() {
+      const totalPrice = store.cart.reduce((acc, current) => {
+        const prodPrice = current.product.price * current.count;
+        return acc + prodPrice;
+      }, 0);
+      const totalCount = store.cart.length;
+      return { totalPrice, totalCount };
+    },
   }));
 
   return (

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useAxiosGet } from "../Hooks/HttpReqests";
-import { useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { StoreContext } from "../Hooks/Store";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { faMinus } from "@fortawesome/free-solid-svg-icons";
@@ -15,8 +15,12 @@ function Product() {
     count: 0,
   });
 
-  const { code } = useParams();
-  const url = `https://back.danilovskymarket.ru/products/${code}`;
+  // const { code } = useParams();
+
+  const query = new URLSearchParams(useLocation().search);
+  const param = query.get("product");
+
+  const url = `https://back.danilovskymarket.ru/products/${param}`;
 
   let product = useAxiosGet(url);
 
@@ -47,7 +51,7 @@ function Product() {
         setPressed({ pressed: true, count: prod.count });
       }
     }
-  });
+  }, [product.data, store]);
 
   if (product.data) {
     if (button.pressed) {

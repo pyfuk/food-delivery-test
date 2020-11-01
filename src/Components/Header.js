@@ -4,6 +4,7 @@ import { faAlignLeft } from "@fortawesome/free-solid-svg-icons";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { faShoppingBag } from "@fortawesome/free-solid-svg-icons";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 
 function Header() {
   return (
@@ -12,7 +13,9 @@ function Header() {
         <FontAwesomeIcon icon={faAlignLeft} />
       </div>
       <div className="header-nav-menu">
-        <div className="header-nav-menu-name">AppName</div>
+        <div className="header-nav-menu-name">
+          <Link to={`/`}>AppName</Link>
+        </div>
 
         <div className="header-nav-menu-contacts-container">
           <div className="header-nav-menu-contacts">
@@ -24,7 +27,9 @@ function Header() {
           <FontAwesomeIcon icon={faSearch} />
         </div>
         <div className="header-nav-menu-button">
-          <FontAwesomeIcon icon={faShoppingBag} />
+          <Link to={`/cart`}>
+            <FontAwesomeIcon icon={faShoppingBag} />
+          </Link>
         </div>
         <div className="header-nav-menu-button">
           <FontAwesomeIcon icon={faUser} />
