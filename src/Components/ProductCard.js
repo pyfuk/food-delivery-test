@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { faMinus } from "@fortawesome/free-solid-svg-icons";
@@ -41,6 +41,13 @@ function ProductCard(props) {
       </button>
     );
   }
+
+  useEffect(() => {
+    const prod = store.getProductInCart(props.product);
+    if (prod) {
+      setPressed({ pressed: true, count: prod.count });
+    }
+  });
 
   const addProduct = () => {
     setPressed({ pressed: true, count: button.count + 1 });

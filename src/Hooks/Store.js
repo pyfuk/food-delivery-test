@@ -13,6 +13,13 @@ const StoreProvider = ({ children }) => {
     removeFromCart: (product) => {
       addOrRemoveExistProduct(false, store.cart, product);
     },
+    getProductInCart: (product) => {
+      const existproduct = store.cart.find(
+        (c) => c.product.code === product.code
+      );
+
+      return existproduct;
+    },
   }));
 
   return (

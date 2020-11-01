@@ -132,7 +132,8 @@
 
 .product-card-button,
 .product-card-button-minus,
-.product-card-button-plus {
+.product-card-button-plus,
+.product-button {
   display: flex;
   -webkit-box-align: center;
   align-items: center;
@@ -290,4 +291,13 @@
 a {
   text-decoration: none;
   color: inherit;
+}
+
+.product-button {
+  width: 142px;
+}
+
+.product-button-container {
+  display: flex;
+  justify-content: center;
 }
