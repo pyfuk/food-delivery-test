@@ -4,13 +4,14 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { faMinus } from "@fortawesome/free-solid-svg-icons";
 import { productSub } from "../Hooks/Service";
 import { Link } from "react-router-dom";
+import { StoreContext } from "../Hooks/Store";
 
 function ProductCard(props) {
   const [button, setPressed] = useState({
     pressed: false,
     count: 0,
   });
-
+  const store = React.useContext(StoreContext);
   let addButoon = null;
 
   if (button.pressed) {
@@ -18,14 +19,14 @@ function ProductCard(props) {
       <div className="product-card-buttons">
         <button
           className="product-card-button-minus"
-          onClick={() => minusCount()}
+          onClick={() => removeProduct()}
         >
           <FontAwesomeIcon icon={faMinus} />
         </button>
         <div className="product-card-button-counter">{button.count} шт</div>
         <button
           className="product-card-button-plus"
-          onClick={() => plusCount()}
+          onClick={() => addProduct()}
         >
           <FontAwesomeIcon icon={faPlus} />
         </button>
@@ -35,63 +36,27 @@ function ProductCard(props) {
 
   if (!button.pressed) {
     addButoon = (
-      <button className="product-card-button" onClick={() => plusCount()}>
+      <button className="product-card-button" onClick={() => addProduct()}>
         <FontAwesomeIcon icon={faPlus} />
       </button>
     );
   }
 
-  const plusCount = () => {
+  const addProduct = () => {
     setPressed({ pressed: true, count: button.count + 1 });
 
-    let productStorage = localStorage.getItem("products");
-
-    if (!productStorage || productStorage === "null") {
-      const products = [{ product: props.product.code, count: 1 }];
-      localStorage.setItem("products", JSON.stringify(products));
-    } else if (productStorage) {
-      let jsonProducts = JSON.parse(productStorage);
-      if (!addOrRemoveFromStorage(true, jsonProducts)) {
-        jsonProducts.push({ product: props.product.code, count: 1 });
-        localStorage.setItem("products", JSON.stringify(jsonProducts));
-      }
-    }
+    store.addToCart(props.product);
+    console.log(store.cart);
   };
 
-  const minusCount = () => {
-    let jsonProducts = JSON.parse(localStorage.getItem("products"));
-
+  const removeProduct = () => {
     if (button.count === 1) {
       setPressed({ pressed: false, count: button.count - 1 });
-      addOrRemoveFromStorage(false, jsonProducts);
     } else {
       setPressed({ pressed: true, count: button.count - 1 });
-      addOrRemoveFromStorage(false, jsonProducts);
     }
-  };
-
-  const addOrRemoveFromStorage = (isPlus, jsonProducts) => {
-    const existProduct = jsonProducts.find(
-      (c) => c.product === props.product.code
-    );
-    if (existProduct) {
-      const existIdxProduct = jsonProducts.indexOf(existProduct);
-      if (isPlus) {
-        jsonProducts[existIdxProduct].count++;
-      } else {
-        if (jsonProducts[existIdxProduct].count === 1) {
-          jsonProducts = jsonProducts.filter(
-            (p) => p.product !== jsonProducts[existIdxProduct].product
-          );
-        } else {
-          jsonProducts[existIdxProduct].count--;
-        }
-      }
-      localStorage.setItem("products", JSON.stringify(jsonProducts));
-      return true;
-    }
-
-    return false;
+    store.removeFromCart(props.product);
+    console.log(store.cart);
   };
 
   const sendSub = () => {

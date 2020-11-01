@@ -1,11 +1,12 @@
 import "./App.css";
 import React, { useState } from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Products from "./Components/Products";
 import Header from "./Components/Header";
 import { productSub } from "./Hooks/Service";
 import { useTransition, animated } from "react-spring";
 import Product from "./Components/Product";
+import { StoreProvider } from "./Hooks/Store";
 
 function App() {
   const [show, set] = useState(false);
@@ -27,43 +28,46 @@ function App() {
 
   const closeModal = () => {
     subscribe.unsubscribe();
+
     set(false);
   };
 
   return (
-    <Router>
-      <div>
-        <Switch>
-          <Route path="/:code">
-            {maskTransitions.map(
-              ({ item, key, props }) =>
-                item && (
-                  <animated.div
-                    key={key}
-                    style={props}
-                    className="product-modal-mask"
-                    onClick={() => closeModal()}
-                  ></animated.div>
-                )
-            )}
-            {transitions.map(
-              ({ item, key, props }) =>
-                item && (
-                  <animated.div
-                    key={key}
-                    style={props}
-                    className="product-modal"
-                  >
-                    <Product product={product} />
-                  </animated.div>
-                )
-            )}
-          </Route>
-        </Switch>
-        <Header />
-        <Products />
-      </div>
-    </Router>
+    <StoreProvider>
+      <Router>
+        <div>
+          <Switch>
+            <Route path="/:code">
+              {maskTransitions.map(
+                ({ item, key, props }) =>
+                  item && (
+                    <animated.div
+                      key={key}
+                      style={props}
+                      className="product-modal-mask"
+                      onClick={() => closeModal()}
+                    ></animated.div>
+                  )
+              )}
+              {transitions.map(
+                ({ item, key, props }) =>
+                  item && (
+                    <animated.div
+                      key={key}
+                      style={props}
+                      className="product-modal"
+                    >
+                      <Product product={product} />
+                    </animated.div>
+                  )
+              )}
+            </Route>
+          </Switch>
+          <Header />
+          <Products />
+        </div>
+      </Router>
+    </StoreProvider>
   );
 }
 
