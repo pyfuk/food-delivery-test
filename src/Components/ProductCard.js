@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { faMinus } from "@fortawesome/free-solid-svg-icons";
@@ -6,13 +6,15 @@ import { productSub } from "../Hooks/Service";
 import { Link } from "react-router-dom";
 import { StoreContext } from "../Hooks/Store";
 import { useObserver } from "mobx-react";
+import { observer } from "mobx-react";
 
-function ProductCard(props) {
+const ProductCard = observer((props) => {
   const [button, setPressed] = useState({
     pressed: false,
     count: 0,
   });
   const store = React.useContext(StoreContext);
+
   let addButoon = null;
 
   if (button.pressed) {
@@ -42,11 +44,6 @@ function ProductCard(props) {
       </button>
     );
   }
-
-  // const prod = store.getProductInCart(props.product);
-  // if (prod) {
-  //   setPressed({ pressed: true, count: prod.count });
-  // }
 
   const addProduct = () => {
     setPressed({ pressed: true, count: button.count + 1 });
@@ -95,5 +92,5 @@ function ProductCard(props) {
       </div>
     </div>
   ));
-}
+});
 export default ProductCard;

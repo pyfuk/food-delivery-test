@@ -15,8 +15,6 @@ function Product() {
     count: 0,
   });
 
-  // const { code } = useParams();
-
   const query = new URLSearchParams(useLocation().search);
   const param = query.get("product");
 
