@@ -26,6 +26,14 @@ const StoreProvider = ({ children }) => {
     removeProduct: (product) => {
       store.cart = store.cart.filter((p) => p.product.code !== product.code);
     },
+    
+    getProductCountByCode: (code) => {
+      const storeProduct = store.cart.slice().find(
+        (c) => c.product.code === code
+      );
+      return storeProduct ? storeProduct.count : 0;
+    },
+    
     get total() {
       const totalPrice = store.cart.reduce((acc, current) => {
         const prodPrice = current.product.price * current.count;

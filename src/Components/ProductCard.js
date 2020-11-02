@@ -9,15 +9,13 @@ import { useObserver } from "mobx-react";
 import { observer } from "mobx-react";
 
 const ProductCard = observer((props) => {
-  const [button, setPressed] = useState({
-    pressed: false,
-    count: 0,
-  });
   const store = React.useContext(StoreContext);
 
   let addButoon = null;
 
-  if (button.pressed) {
+  const productCount = store.getProductCountByCode(props.product.code);
+  
+  if (productCount) {
     addButoon = (
       <div className="product-card-buttons">
         <button
@@ -26,7 +24,7 @@ const ProductCard = observer((props) => {
         >
           <FontAwesomeIcon icon={faMinus} />
         </button>
-        <div className="product-card-button-counter">{button.count} шт</div>
+        <div className="product-card-button-counter">{productCount} шт</div>
         <button
           className="product-card-button-plus"
           onClick={() => addProduct()}
@@ -35,9 +33,7 @@ const ProductCard = observer((props) => {
         </button>
       </div>
     );
-  }
-
-  if (!button.pressed) {
+  } else {
     addButoon = (
       <button className="product-card-button" onClick={() => addProduct()}>
         <FontAwesomeIcon icon={faPlus} />
@@ -46,18 +42,12 @@ const ProductCard = observer((props) => {
   }
 
   const addProduct = () => {
-    setPressed({ pressed: true, count: button.count + 1 });
 
     store.addProductCountToCart(props.product);
     console.log(store.cart);
   };
 
   const removeProduct = () => {
-    if (button.count === 1) {
-      setPressed({ pressed: false, count: button.count - 1 });
-    } else {
-      setPressed({ pressed: true, count: button.count - 1 });
-    }
     store.removeProductCountToCart(props.product);
     console.log(store.cart);
   };

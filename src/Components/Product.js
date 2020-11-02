@@ -5,36 +5,28 @@ import { StoreContext } from "../Hooks/Store";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { faMinus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { observer } from "mobx-react";
 
 function Product() {
   let content = null;
   let addButton = null;
   const store = React.useContext(StoreContext);
-  const [button, setPressed] = useState({
-    pressed: false,
-    count: 0,
-  });
-
+  
   const query = new URLSearchParams(useLocation().search);
   const param = query.get("product");
 
+
+  const productCount = store.getProductCountByCode(param);
   const url = `https://back.danilovskymarket.ru/products/${param}`;
 
   let product = useAxiosGet(url);
 
   const addProduct = (product) => {
-    setPressed({ pressed: true, count: button.count + 1 });
-
     store.addProductCountToCart(product);
     console.log(store.cart);
   };
 
   const removeProduct = (product) => {
-    if (button.count === 1) {
-      setPressed({ pressed: false, count: button.count - 1 });
-    } else {
-      setPressed({ pressed: true, count: button.count - 1 });
-    }
     store.removeProductCountToCart(product);
     console.log(store.cart);
   };
@@ -42,37 +34,27 @@ function Product() {
   if (product.error) {
     content = <p>ERROR</p>;
   }
-  useEffect(() => {
-    if (product.data) {
-      const prod = store.getProductInCart(product.data);
-      if (prod) {
-        setPressed({ pressed: true, count: prod.count });
-      }
-    }
-  }, [product.data, store]);
 
   if (product.data) {
-    if (button.pressed) {
+    if (productCount) {
       addButton = (
         <div className="product-card-buttons">
           <button
             className="product-card-button-minus"
             onClick={() => removeProduct(product.data)}
           >
-            <FontAwesomeIcon icon={faMinus} />
+            <FontAwesomeIcon icon={faMinus}/>
           </button>
-          <div className="product-card-button-counter">{button.count} шт</div>
+          <div className="product-card-button-counter">{productCount} шт</div>
           <button
             className="product-card-button-plus"
             onClick={() => addProduct(product.data)}
           >
-            <FontAwesomeIcon icon={faPlus} />
+            <FontAwesomeIcon icon={faPlus}/>
           </button>
         </div>
       );
-    }
-
-    if (!button.pressed) {
+    } else {
       addButton = (
         <button
           className="product-button"
@@ -116,4 +98,4 @@ function Product() {
   return <React.Fragment>{content}</React.Fragment>;
 }
 
-export default Product;
+export default observer(Product);
