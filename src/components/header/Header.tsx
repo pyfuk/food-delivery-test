@@ -1,7 +1,26 @@
 import React from "react";
 import s from "./Header.module.scss";
+import { useAxiosGet } from "../../helpers/HttpReqests";
+import { groupBy } from "lodash";
+import { CategoryModel } from "../../types/CategoryModel";
+
+export type CategoryType = CategoryModel & { subcategories: CategoryModel[] };
 
 const Header = () => {
+  const categpries = useAxiosGet("https://back.danilovskymarket.ru/categories");
+
+  if (categpries.data) {
+    const groupedCategories = groupBy(categpries.data, "parentCategoryCode");
+
+    //Type Any because of groupBy
+    const [meals, products] = ["meals", "products"].map((data) => {
+      return groupedCategories[data].map((category: any) => ({
+        ...category,
+        subcategories: groupedCategories[category.code],
+      }));
+    });
+  }
+
   return (
     <header className={s.header_container}>
       <div className={s.menu_button}>
