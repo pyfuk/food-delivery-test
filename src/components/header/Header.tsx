@@ -1,8 +1,9 @@
 import React from "react";
-import s from "./Header.module.scss";
 import { useAxiosGet } from "../../helpers/HttpReqests";
 import { groupBy } from "lodash";
 import { CategoryModel } from "../../types/CategoryModel";
+
+import s from "./Header.module.scss";
 
 export type CategoryType = CategoryModel & { subcategories: CategoryModel[] };
 

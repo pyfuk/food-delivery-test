@@ -1,0 +1,44 @@
+.sidebar_container {
+  width: 100%;
+  height: 100%;
+  min-width: 288px;
+  max-width: 288px;
+  background-color: rgb(255, 253, 250);
+  .image_container {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    padding-top: 17px;
+    padding-bottom: 14px;
+    border-right: 1px solid rgb(221, 215, 213);
+    background-color: rgb(255, 253, 250);
+    border-bottom: 1px solid rgb(221, 215, 213);
+  }
+
+  .address {
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    padding: 16px;
+
+    button {
+      width: 100%;
+      display: flex;
+      -webkit-box-align: center;
+      align-items: center;
+      -webkit-box-pack: center;
+      justify-content: center;
+      border-radius: 8px;
+      height: 40px;
+      transition: all 0.2s ease 0s;
+      line-height: 16px;
+      font-size: 13px;
+      background-color: transparent;
+      color: rgb(25, 0, 0);
+      border: 1px solid rgb(221, 215, 213);
+      cursor: pointer;
+    }
+  }
+}
