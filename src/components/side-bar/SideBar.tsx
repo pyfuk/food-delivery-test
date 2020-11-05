@@ -1,8 +1,40 @@
-import React from "react";
+import React, { useState } from "react";
+import { useAxiosGet } from "../../helpers/HttpReqests";
+import { groupBy } from "lodash";
+import { CategoryModel } from "../../types/CategoryModel";
+import CategoryCard from "./category/CategoryCard";
 
 import s from "./SideBar.module.scss";
 
+export type CategoryType = CategoryModel & { subcategories: CategoryModel[] };
+
 const SideBar = () => {
+  let categories: CategoryType[] = [];
+
+  const [active, setActive] = useState(false);
+
+  const allCategories = useAxiosGet(
+    "https://back.danilovskymarket.ru/categories"
+  );
+
+  if (allCategories.data) {
+    const groupedCategories = groupBy(allCategories.data, "parentCategoryCode");
+
+    //Type Any because of groupBy
+    const [meals, products] = ["meals", "products"].map((data) => {
+      return groupedCategories[data].map((category: any) => ({
+        ...category,
+        subcategories: groupedCategories[category.code],
+      }));
+    });
+
+    if (active) {
+      categories = meals;
+    } else {
+      categories = products;
+    }
+  }
+
   return (
     <div className={s.sidebar_container}>
       <div className={s.image_container}>
@@ -21,7 +53,23 @@ const SideBar = () => {
             <p>ул Мытная, д 74</p>
           </button>
         </div>
-        <div className={s.cotigories_container}></div>
+        <div className={s.cotigories_container}>
+          <div className={s.tab_list}>
+            <div className={s.left_tab} onClick={() => setActive(false)}>
+              ПРОДУКТЫ
+            </div>
+            <div className={s.right_tab} onClick={() => setActive(true)}>
+              ГОТОВАЯ ЕДА
+            </div>
+            <div
+              className={active ? s.switcher + " " + s.right : s.switcher}
+            ></div>
+          </div>
+          {categories.length > 0 &&
+            categories.map((category: CategoryType, key: number) => {
+              return <CategoryCard category={category} key={key} />;
+            })}
+        </div>
       </nav>
     </div>
   );

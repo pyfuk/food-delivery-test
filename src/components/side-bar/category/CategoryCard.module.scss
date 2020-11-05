@@ -1,0 +1,31 @@
+.category_container {
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  cursor: pointer;
+  min-height: 48px;
+  border-bottom: 1px solid rgb(221, 215, 213);
+  padding: 8px 12px 8px 8px;
+  font-size: 13px;
+  line-height: 16px;
+  text-align: left;
+  transition: color 0.2s ease-in 0s;
+
+  img:first-child {
+    width: 32px;
+    height: 32px;
+    margin-right: 8px;
+  }
+  p {
+    flex: 1;
+  }
+
+  .active {
+    transition: transform 300ms ease-in-out 0s;
+    transform: rotateZ(180deg);
+  }
+  .inactive {
+    transition: transform 300ms ease-in-out 0s;
+    transform: rotateZ(0deg);
+  }
+}

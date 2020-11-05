@@ -1,16 +1,22 @@
 .sidebar_container {
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  z-index: 400;
+  margin-right: 288px;
   width: 100%;
   height: 100%;
   min-width: 288px;
   max-width: 288px;
-  background-color: rgb(255, 253, 250);
+  border-bottom: 1px solid rgb(221, 215, 213);
+
   .image_container {
     display: flex;
     -webkit-box-align: center;
     align-items: center;
     -webkit-box-pack: center;
     justify-content: center;
-    padding-top: 17px;
+    padding-top: 19px;
     padding-bottom: 14px;
     border-right: 1px solid rgb(221, 215, 213);
     background-color: rgb(255, 253, 250);
@@ -39,6 +45,46 @@
       color: rgb(25, 0, 0);
       border: 1px solid rgb(221, 215, 213);
       cursor: pointer;
+    }
+  }
+
+  .tab_list {
+    position: relative;
+    display: flex;
+    width: 100%;
+    background-color: rgb(221, 215, 213);
+
+    .left_tab,
+    .right_tab {
+      display: flex;
+      flex: 1 1 0%;
+      -webkit-box-align: center;
+      align-items: center;
+      -webkit-box-pack: center;
+      justify-content: center;
+      height: 72px;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: 500;
+      color: black;
+      z-index: 1;
+      transition: color 0.2s ease-in 0s;
+      border-bottom: 1px solid rgb(221, 215, 213);
+    }
+    .switcher {
+      height: 100%;
+      position: absolute;
+      width: 50%;
+      background-color: rgb(255, 253, 250);
+      z-index: 0;
+      transition: transform 0.2s ease-in 0s;
+      border-radius: 8px;
+      border: 1px solid transparent;
+      will-change: transform;
+    }
+
+    .right {
+      transform: translateX(100%);
     }
   }
 }

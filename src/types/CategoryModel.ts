@@ -5,7 +5,8 @@ export type CategoryModel = {
   createdAt: Date;
   depthLevel: number;
   description: string;
-  logo: LogoModel[];
+  logo: LogoModel;
+  name: string;
   parentCategoryCode: string;
   sortIndex: number;
   tags: { code: string; name: string }[];

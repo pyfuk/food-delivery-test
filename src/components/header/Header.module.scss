@@ -17,6 +17,10 @@
     cursor: pointer;
     border-right: 1px solid rgb(221, 215, 213);
     padding: 20px;
+
+    @media (min-width: 1280px) {
+      display: none;
+    }
   }
 
   .search_block {
