@@ -29,3 +29,27 @@
     transform: rotateZ(0deg);
   }
 }
+
+.subcategory {
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  cursor: pointer;
+  text-decoration: none;
+  color: rgb(25, 0, 0);
+  height: 40px;
+  padding: 0px 10px 0px 10px;
+  span {
+    flex: 1;
+    padding-left: 40px;
+  }
+  img {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    width: max-content;
+    transform: rotateZ(90deg);
+  }
+}

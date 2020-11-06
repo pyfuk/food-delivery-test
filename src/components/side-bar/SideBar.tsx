@@ -24,7 +24,12 @@ const SideBar = () => {
     const [meals, products] = ["meals", "products"].map((data) => {
       return groupedCategories[data].map((category: any) => ({
         ...category,
-        subcategories: groupedCategories[category.code],
+        subcategories: groupedCategories[category.code]
+          ? [
+              { code: category.code, name: "Все сразу" },
+              ...groupedCategories[category.code],
+            ]
+          : null,
       }));
     });
 
