@@ -1,18 +1,31 @@
 import React, { useState } from "react";
-import { CategoryModel } from "../../../types/CategoryModel";
 import { CategoryType } from "../SideBar";
-
+import { Link, useHistory } from "react-router-dom";
 import s from "./CategoryCard.module.scss";
 
 interface CategoryCardProps {
   category: CategoryType;
+  type: "products" | "meals";
 }
 
-const CategoryCard = ({ category }: CategoryCardProps) => {
+const CategoryCard = ({ category, type }: CategoryCardProps) => {
   const [active, setActive] = useState(false);
+
+  const history = useHistory();
+
+  const navigate = () => {
+    if (!category.subcategories) history.push(`/${type}/${category.code}`);
+  };
+
   return (
     <>
-      <div className={s.category_container} onClick={() => setActive(!active)}>
+      <div
+        className={s.category_container}
+        onClick={() => {
+          setActive(!active);
+          navigate();
+        }}
+      >
         <img src={category.logo.path} alt={category.logo.nameOptions.alt} />
         <p>{category.name}</p>
         {category.subcategories && (
@@ -27,14 +40,16 @@ const CategoryCard = ({ category }: CategoryCardProps) => {
         category.subcategories &&
         category.subcategories.map((subcategory, key) => {
           return (
-            <div className={s.subcategory} key={key}>
-              <span>{subcategory.name}</span>
-              <img
-                src={process.env.PUBLIC_URL + "/navigation/arrow.svg"}
-                alt="subcategories"
-                className={active ? s.active : s.inactive}
-              />
-            </div>
+            <Link to={`/${type}/${subcategory.code}`} key={key}>
+              <div className={s.subcategory}>
+                <span>{subcategory.name}</span>
+                <img
+                  src={process.env.PUBLIC_URL + "/navigation/arrow.svg"}
+                  alt="subcategories"
+                  className={active ? s.active : s.inactive}
+                />
+              </div>
+            </Link>
           );
         })}
     </>

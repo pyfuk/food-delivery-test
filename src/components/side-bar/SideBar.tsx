@@ -22,7 +22,7 @@ const SideBar = () => {
 
     //Type Any because of groupBy
     const [meals, products] = ["meals", "products"].map((data) => {
-      return groupedCategories[data].map((category: any) => ({
+      return groupedCategories[data]?.map((category: any) => ({
         ...category,
         subcategories: groupedCategories[category.code]
           ? [
@@ -72,7 +72,13 @@ const SideBar = () => {
           </div>
           {categories.length > 0 &&
             categories.map((category: CategoryType, key: number) => {
-              return <CategoryCard category={category} key={key} />;
+              return (
+                <CategoryCard
+                  category={category}
+                  type={active ? "meals" : "products"}
+                  key={key}
+                />
+              );
             })}
         </div>
       </nav>
