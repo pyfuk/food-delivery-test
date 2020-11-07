@@ -16,7 +16,7 @@ const App = () => {
         <div className={s.main_container}>
           <Header />
           <Switch>
-            <Route path="/:type/:code">
+            <Route path="/:categoryType/:categoryCode/:categoryName">
               <Products />
             </Route>
           </Switch>

@@ -14,7 +14,8 @@ const CategoryCard = ({ category, type }: CategoryCardProps) => {
   const history = useHistory();
 
   const navigate = () => {
-    if (!category.subcategories) history.push(`/${type}/${category.code}`);
+    if (!category.subcategories)
+      history.push(`/${type}/${category.code}/${category.name}`);
   };
 
   return (
@@ -40,7 +41,10 @@ const CategoryCard = ({ category, type }: CategoryCardProps) => {
         category.subcategories &&
         category.subcategories.map((subcategory, key) => {
           return (
-            <Link to={`/${type}/${subcategory.code}`} key={key}>
+            <Link
+              to={`/${type}/${subcategory.code}/${subcategory.name}`}
+              key={key}
+            >
               <div className={s.subcategory}>
                 <span>{subcategory.name}</span>
                 <img
