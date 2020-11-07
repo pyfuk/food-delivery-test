@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { ProductModel } from "../../../types/ProductModel";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 import s from "./ProductCard.module.scss";
 
@@ -22,7 +24,12 @@ const ProductCard = ({ product }: ProductParam) => {
           <p className={s.name}>{product.name}</p>
           <p className={s.weight}>{product.weight} г</p>
         </Link>
-        <div></div>
+        <div className={s.closePrice}>
+          <p>{product.price}</p>
+          <button>
+            <FontAwesomeIcon icon={faPlus} />
+          </button>
+        </div>
       </div>
     </div>
   );
