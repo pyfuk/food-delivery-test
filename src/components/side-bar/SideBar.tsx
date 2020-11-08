@@ -5,11 +5,16 @@ import { CategoryModel } from "../../types/CategoryModel";
 import CategoryCard from "./category/CategoryCard";
 
 import s from "./SideBar.module.scss";
+import { useStore } from "../../store/Store";
 
 export type CategoryType = CategoryModel & { subcategories: CategoryModel[] };
 
 const SideBar = () => {
   let categories: CategoryType[] = [];
+  const store = useStore();
+
+  store.cart.addItem();
+  console.log(store.cart._list.get("wedwed"));
 
   const [active, setActive] = useState(false);
 

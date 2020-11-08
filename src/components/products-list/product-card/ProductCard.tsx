@@ -1,13 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { ProductModel } from "../../../types/ProductModel";
+import { Product } from "../../../types/ProductModel";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 import s from "./ProductCard.module.scss";
 
 interface ProductParam {
-  product: ProductModel;
+  product: Product;
 }
 
 const ProductCard = ({ product }: ProductParam) => {
@@ -19,7 +19,7 @@ const ProductCard = ({ product }: ProductParam) => {
       <div className={s.product_item}>
         <Link to={"/"}>
           <div className={s.image_container}>
-            <img src={product.images[0].path} alt="product" />
+            {/* <img src={product.images[0].path} alt="product" /> */}
           </div>
           <p className={s.name}>{product.name}</p>
           <p className={s.weight}>{product.weight} г</p>

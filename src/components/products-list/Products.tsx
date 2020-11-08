@@ -1,7 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { useAxiosGet } from "../../helpers/HttpReqests";
-import { ProductModel } from "../../types/ProductModel";
+import { Product } from "../../types/ProductModel";
 import ProductCard from "./product-card/ProductCard";
 
 import s from "./Products.module.scss";
@@ -42,7 +42,7 @@ const Products = () => {
         </div>
         <div className={s.products_list}>
           {products &&
-            products.items.map((product: ProductModel, key: number) => {
+            products.items.map((product: Product, key: number) => {
               return <ProductCard product={product} key={key} />;
             })}
         </div>
