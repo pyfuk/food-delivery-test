@@ -1,4 +1,5 @@
-.product_container {
+.product_container,
+.product_container_selected {
   position: relative;
   .shop {
     position: absolute;
@@ -50,6 +51,16 @@
           object-fit: cover;
         }
 
+        .selected {
+          display: none;
+          -webkit-box-align: center;
+          align-items: center;
+          justify-content: right;
+          flex-flow: row-reverse;
+          flex: 0 1 0%;
+          transition: flex 0.4s ease 0s, transform 0.4s ease 0s;
+        }
+
         @media (min-width: 500px) {
           height: 195px;
         }
@@ -70,7 +81,7 @@
       }
     }
 
-    .closePrice {
+    .price {
       display: flex;
       -webkit-box-pack: justify;
       justify-content: space-between;
@@ -90,28 +101,120 @@
         font-size: 16px;
         padding-left: 4px;
       }
-      button {
-        height: 40px;
-        width: 40px;
-        padding: 0px;
-        display: flex;
-        -webkit-box-align: center;
-        align-items: center;
-        -webkit-box-pack: center;
-        justify-content: center;
-        border-radius: 8px;
-        transition: all 0.2s ease 0s;
-        line-height: 16px;
-        font-size: 13px;
-        border: none;
-        background-color: rgb(58, 101, 176);
-        color: rgb(255, 255, 255);
-        cursor: pointer;
+
+      .buttons {
+        .plusButton,
+        .minusButton {
+          height: 40px;
+          width: 40px;
+          padding: 0px;
+          display: flex;
+          -webkit-box-align: center;
+          align-items: center;
+          -webkit-box-pack: center;
+          justify-content: center;
+          border-radius: 8px;
+          transition: all 0.2s ease 0s;
+          line-height: 16px;
+          font-size: 13px;
+          border: none;
+          background-color: rgb(58, 101, 176);
+          color: rgb(255, 255, 255);
+          cursor: pointer;
+        }
+
+        .minusButton {
+          display: none;
+        }
+        .counterValue {
+          display: none;
+        }
       }
     }
 
     @media (min-width: 500px) {
       padding: 24px;
+    }
+  }
+}
+
+.product_container_selected {
+  .product_item {
+    background-color: rgb(240, 237, 234);
+    a {
+      .image_container {
+        img {
+          width: 87%;
+        }
+        .selected {
+          display: flex;
+          flex: 1 1 0%;
+          transition: flex 0.4s ease 0s, transform 0.4s ease 0s;
+          .circle {
+            position: absolute;
+            display: flex;
+            -webkit-box-align: center;
+            align-items: center;
+            -webkit-box-pack: center;
+            justify-content: center;
+            border-radius: 56px;
+            width: 56px;
+            height: 56px;
+            background-color: white;
+            box-shadow: rgba(25, 0, 0, 0.02) 0px 2px 4px,
+              rgba(66, 10, 10, 0.06) 0px 5px 18px;
+
+            img {
+              width: 30px;
+              height: 30px;
+            }
+          }
+        }
+
+        @media (min-width: 500px) {
+          height: 165px;
+        }
+
+        @media (min-width: 768px) {
+          height: 163px;
+        }
+      }
+    }
+
+    .price {
+      flex-direction: column;
+      align-items: flex-start;
+
+      .buttons {
+        margin-top: 8px;
+        display: flex;
+        width: 100%;
+        .plusButton {
+          border-top-left-radius: 0;
+          border-bottom-left-radius: 0;
+        }
+        .minusButton {
+          display: block;
+          border-top-right-radius: 0;
+          border-bottom-right-radius: 0;
+        }
+        .counterValue {
+          display: flex;
+          -webkit-box-align: center;
+          align-items: center;
+          flex: 1 1 0%;
+          width: 100%;
+          height: 40px;
+          -webkit-box-pack: center;
+          justify-content: center;
+          font-size: 15px;
+          line-height: 24px;
+          border-left: 1px solid rgb(42, 83, 163);
+          border-right: 1px solid rgb(42, 83, 163);
+          background: rgb(58, 101, 176);
+          color: rgb(255, 255, 255);
+        }
+      }
     }
   }
 }
