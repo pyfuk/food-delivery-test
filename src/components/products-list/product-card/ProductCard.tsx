@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { Product } from "../../../types/ProductModel";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -14,10 +14,7 @@ interface ProductParam {
 }
 
 const ProductCard = observer(({ product }: ProductParam) => {
-  const [active, setActive] = useState(false);
-
   const store = useStore();
-
   const existProduct = store.cart.getProduct(product.code);
 
   return (
@@ -48,10 +45,13 @@ const ProductCard = observer(({ product }: ProductParam) => {
         <div className={s.price}>
           <p>{product.price}</p>
           <div className={s.buttons}>
-            <button className={s.minusButton} onClick={() => setActive(false)}>
+            <button
+              className={s.minusButton}
+              onClick={() => store.cart.removeFromCart(-1, product)}
+            >
               <FontAwesomeIcon icon={faMinus} />
             </button>
-            <div className={s.counterValue}>0 шт</div>
+            <div className={s.counterValue}>{existProduct?.count} шт</div>
             <button
               className={s.plusButton}
               onClick={() => store.cart.addToCart(+1, product)}

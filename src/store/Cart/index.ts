@@ -1,23 +1,13 @@
-import { types } from "mobx-state-tree";
+import { Instance, types } from "mobx-state-tree";
 import { ProductCartModel } from "../../types/ProductCartModel";
-import { Product } from "../../types/ProductModel";
+import { cartActions } from "./action";
+import { cartViews } from "./views";
 
 export const CartStore = types
   .model({
     _list: types.map(ProductCartModel),
   })
-  .views((self) => ({
-    getProduct(code: string) {
-      return self._list.get(code);
-    },
-  }))
-  .actions((self) => ({
-    addToCart(diff: number, product: Product) {
-      const existProduct = self.getProduct(product.code);
+  .views(cartViews)
+  .actions(cartActions);
 
-      self._list.set(product.code, {
-        product,
-        count: existProduct ? existProduct.count + diff : diff,
-      });
-    },
-  }));
+export interface SelfCartStore extends Instance<typeof CartStore> {}
