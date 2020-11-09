@@ -19,18 +19,23 @@ const Cart = observer(() => {
       <div className={s.products_container}>
         <div className={s.nameAndCount}>
           <h1>Корзина</h1>
-          <span>1 товар</span>
+          <span>
+            {store.cart.getProductsCount() ? store.cart.getProductsCount() : 0}
+            &nbsp;товара
+          </span>
         </div>
 
         <div className={s.products}>
           <div className={s.products_header}>
             <h2>Продукты</h2>
-            <button>Очистить</button>
+            <button onClick={() => store.cart.removeAllProducts()}>
+              Очистить
+            </button>
           </div>
 
           {Object.keys(products).map((code: string) => {
             return (
-              <article className={s.product_container}>
+              <article className={s.product_container} key={code}>
                 <div className={s.product_item}>
                   <img
                     src={products[code].product.images[0].path}
@@ -65,12 +70,17 @@ const Cart = observer(() => {
                         </button>
                       </div>
                       <b className={s.price}>
-                        {products[code].product.price} ₽
+                        {products[code].product.price * products[code].count} ₽
                       </b>
                     </div>
                   </div>
                 </div>
-                <button className={s.remove}>X</button>
+                <button
+                  className={s.remove}
+                  onClick={() => store.cart.removeProduct(code)}
+                >
+                  X
+                </button>
               </article>
             );
           })}

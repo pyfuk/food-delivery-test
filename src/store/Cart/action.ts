@@ -26,7 +26,19 @@ const removeFromCart = (self: SelfCartStore) => (
   }
 };
 
+const removeProduct = (self: SelfCartStore) => (code: string) => {
+  self._list.delete(code);
+};
+
+const removeAllProducts = (self: SelfCartStore) => () => {
+  Object.keys(self._list.toJSON()).forEach((code) => {
+    self._list.delete(code);
+  });
+};
+
 export const cartActions = (self: any) => ({
   addToCart: addToCart(self),
   removeFromCart: removeFromCart(self),
+  removeProduct: removeProduct(self),
+  removeAllProducts: removeAllProducts(self),
 });
