@@ -4,18 +4,27 @@ import { Product } from "../../../types/ProductModel";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { faMinus } from "@fortawesome/free-solid-svg-icons";
+import { observer } from "mobx-react";
 
 import s from "./ProductCard.module.scss";
+import { useStore } from "../../../store/Store";
 
 interface ProductParam {
   product: Product;
 }
 
-const ProductCard = ({ product }: ProductParam) => {
+const ProductCard = observer(({ product }: ProductParam) => {
   const [active, setActive] = useState(false);
+
+  const store = useStore();
+
+  const existProduct = store.cart.getProduct(product.code);
+
   return (
     <div
-      className={active ? s.product_container_selected : s.product_container}
+      className={
+        existProduct ? s.product_container_selected : s.product_container
+      }
     >
       <div className={s.shop}>
         <span>Smth</span>
@@ -43,7 +52,10 @@ const ProductCard = ({ product }: ProductParam) => {
               <FontAwesomeIcon icon={faMinus} />
             </button>
             <div className={s.counterValue}>0 шт</div>
-            <button className={s.plusButton} onClick={() => setActive(true)}>
+            <button
+              className={s.plusButton}
+              onClick={() => store.cart.addToCart(+1, product)}
+            >
               <FontAwesomeIcon icon={faPlus} />
             </button>
           </div>
@@ -51,6 +63,6 @@ const ProductCard = ({ product }: ProductParam) => {
       </div>
     </div>
   );
-};
+});
 
 export default ProductCard;
