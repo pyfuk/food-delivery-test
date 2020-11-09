@@ -7,9 +7,14 @@ import { Link } from "react-router-dom";
 const Header = observer(() => {
   const store = useStore();
 
+  console.log(store.navigation._isOpened);
+
   return (
     <header className={s.header_container}>
-      <div className={s.menu_button}>
+      <div
+        className={s.menu_button}
+        onClick={() => store.navigation.openOrCloseNavigation()}
+      >
         <img
           src={process.env.PUBLIC_URL + "/header/menu_button.svg"}
           alt="menu"

@@ -3,13 +3,16 @@ import { useAxiosGet } from "../../helpers/HttpReqests";
 import { groupBy } from "lodash";
 import { Category } from "../../types/CategoryModel";
 import CategoryCard from "./category/CategoryCard";
-
+import { observer } from "mobx-react";
 import s from "./SideBar.module.scss";
+import { useStore } from "../../store/Store";
 
 export type CategoryType = Category & { subcategories: Category[] };
 
-const SideBar = () => {
+const SideBar = observer(() => {
   let categories: CategoryType[] = [];
+
+  const store = useStore();
 
   const [active, setActive] = useState(false);
 
@@ -41,7 +44,13 @@ const SideBar = () => {
   }
 
   return (
-    <div className={s.sidebar_container}>
+    <div
+      className={
+        store.navigation._isOpened
+          ? s.sidebar_container
+          : s.sidebar_container_close
+      }
+    >
       <div className={s.image_container}>
         <img
           src="https://delivery.danilovskymarket.ru/static/images/logo.svg"
@@ -84,6 +93,6 @@ const SideBar = () => {
       </nav>
     </div>
   );
-};
+});
 
 export default SideBar;
