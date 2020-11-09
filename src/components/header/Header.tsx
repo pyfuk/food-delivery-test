@@ -1,7 +1,12 @@
 import React from "react";
 import s from "./Header.module.scss";
+import { observer } from "mobx-react";
+import { useStore } from "../../store/Store";
+import { Link } from "react-router-dom";
 
-const Header = () => {
+const Header = observer(() => {
+  const store = useStore();
+
   return (
     <header className={s.header_container}>
       <div className={s.menu_button}>
@@ -53,13 +58,15 @@ const Header = () => {
           />
         </div>
         <div className={s.basket}>
-          <div className={s.basket_icon}>
-            <img
-              src={process.env.PUBLIC_URL + "/header/basket.svg"}
-              alt="basket"
-            />
-            <span>0</span>
-          </div>
+          <Link to="/cart">
+            <div className={s.basket_icon}>
+              <img
+                src={process.env.PUBLIC_URL + "/header/basket.svg"}
+                alt="basket"
+              />
+              <span>{store.cart.getProductsCount()}</span>
+            </div>
+          </Link>
         </div>
         <div className={s.user}>
           <img src={process.env.PUBLIC_URL + "/header/user.svg"} alt="user" />
@@ -67,6 +74,6 @@ const Header = () => {
       </div>
     </header>
   );
-};
+});
 
 export default Header;

@@ -7,6 +7,7 @@ import s from "./App.module.scss";
 import { storeContext } from "./store/Store";
 import { initializeStore } from "./store/InitializeStore";
 import { SelfRootStore } from "./store/SelfRootStore";
+import Cart from "./components/cart/Cart";
 
 const App = () => {
   const store = useMemo(() => initializeStore(), []) as SelfRootStore;
@@ -23,6 +24,9 @@ const App = () => {
             <Switch>
               <Route path="/:categoryType/:categoryCode/:categoryName">
                 <Products />
+              </Route>
+              <Route path="/cart">
+                <Cart />
               </Route>
             </Switch>
           </div>
