@@ -19,7 +19,7 @@ const ProductCard = ({ product }: ProductParam) => {
       <div className={s.product_item}>
         <Link to={"/"}>
           <div className={s.image_container}>
-            {/* <img src={product.images[0].path} alt="product" /> */}
+            <img src={product.images[0].path} alt="product" />
           </div>
           <p className={s.name}>{product.name}</p>
           <p className={s.weight}>{product.weight} г</p>

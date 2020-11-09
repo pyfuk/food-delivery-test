@@ -1,20 +1,15 @@
 import React, { useState } from "react";
 import { useAxiosGet } from "../../helpers/HttpReqests";
 import { groupBy } from "lodash";
-import { CategoryModel } from "../../types/CategoryModel";
+import { Category } from "../../types/CategoryModel";
 import CategoryCard from "./category/CategoryCard";
 
 import s from "./SideBar.module.scss";
-import { useStore } from "../../store/Store";
 
-export type CategoryType = CategoryModel & { subcategories: CategoryModel[] };
+export type CategoryType = Category & { subcategories: Category[] };
 
 const SideBar = () => {
   let categories: CategoryType[] = [];
-  const store = useStore();
-
-  store.cart.addItem();
-  console.log(store.cart._list.get("wedwed"));
 
   const [active, setActive] = useState(false);
 

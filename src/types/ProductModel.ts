@@ -1,4 +1,5 @@
 import { Instance, types } from "mobx-state-tree";
+import { LogoModel } from "./LogoModel";
 
 export const ProductModel = types.model({
   calories: types.number,
@@ -7,7 +8,7 @@ export const ProductModel = types.model({
   createdAt: types.string,
   description: types.array(types.string),
   foodServices: types.array(types.string),
-  // images: LogoModel[],
+  images: types.array(LogoModel),
   ingredients: types.array(types.string),
   measureUnitCode: types.string,
   name: types.string,
