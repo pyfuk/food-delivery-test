@@ -8,6 +8,7 @@ import { storeContext } from "./store/Store";
 import { initializeStore } from "./store/InitializeStore";
 import { SelfRootStore } from "./store/SelfRootStore";
 import Cart from "./components/cart/Cart";
+import Main from "./components/main/Main";
 
 const App = () => {
   const store = useMemo(() => initializeStore(), []) as SelfRootStore;
@@ -27,6 +28,9 @@ const App = () => {
               </Route>
               <Route path="/cart">
                 <Cart />
+              </Route>
+              <Route path="/" exact>
+                <Main />
               </Route>
             </Switch>
           </div>

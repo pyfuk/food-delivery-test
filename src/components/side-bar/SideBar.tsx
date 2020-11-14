@@ -6,6 +6,7 @@ import CategoryCard from "./category/CategoryCard";
 import { observer } from "mobx-react";
 import s from "./SideBar.module.scss";
 import { useStore } from "../../store/Store";
+import { Link } from "react-router-dom";
 
 export type CategoryType = Category & { subcategories: Category[] };
 
@@ -51,12 +52,14 @@ const SideBar = observer(() => {
           : s.sidebar_container_close
       }
     >
-      <div className={s.image_container}>
-        <img
-          src="https://delivery.danilovskymarket.ru/static/images/logo.svg"
-          alt="logo"
-        />
-      </div>
+      <Link to="/">
+        <div className={s.image_container}>
+          <img
+            src="https://delivery.danilovskymarket.ru/static/images/logo.svg"
+            alt="logo"
+          />
+        </div>
+      </Link>
       <nav className={s.navigation_container}>
         <div className={s.address}>
           <button>

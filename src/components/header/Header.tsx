@@ -38,10 +38,12 @@ const Header = observer(() => {
       </div>
       <div className={s.user_block}>
         <div className={s.name_image}>
-          <img
-            src="https://delivery.danilovskymarket.ru/static/images/logo-left.svg"
-            alt="logo"
-          />
+          <Link to="/">
+            <img
+              src="https://delivery.danilovskymarket.ru/static/images/logo-left.svg"
+              alt="logo"
+            />
+          </Link>
         </div>
         <div className={s.phone}>
           <div>
